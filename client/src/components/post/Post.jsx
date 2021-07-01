@@ -7,7 +7,7 @@ import {format} from "timeago.js"
 import {Link} from "react-router-dom"
 
 export default function Post({post}) {
-    console.log(post)
+    // console.log(post)
     // const user = Users.filter(u=>u.id===1)
     // console.log(user[0].username)
 
@@ -24,14 +24,16 @@ export default function Post({post}) {
     useEffect(()=>{
         const fetchUser = async ()=>{
   
-          const res = await axios.get(`/users/${post.userId}`)
+         const res = await axios.get(`/users?userId=${post.userId}`)
          setUser(res.data)
-       
+        //   console.log(res)
         };
   
         fetchUser()
        
       },[post.userId])
+
+      console.log(user)
   return (
    
     <div className="post">
