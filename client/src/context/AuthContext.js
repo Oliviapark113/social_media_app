@@ -2,7 +2,16 @@ import {createContext, useReducer} from "react"
 import AuthReducer from "./AuthReducer"
 
 const INITIAL_STATE ={
-    user: null,
+    user: {
+        _id:"60def3d13c9c5c82ff6c9fdc",
+        username: "olivia",
+        email:"olivia@gmail.com",
+        profilePicture: "person/1.jpeg",
+        coverPicture:"",
+        isAdmin:false,
+        followers:[],
+        followings:["60d3de3e1e319a11c845e87b"],
+    },
     isFetching:false,
     error: false,
 
@@ -11,7 +20,7 @@ const INITIAL_STATE ={
 export const AuthContext = createContext(INITIAL_STATE);
 
 export const AuthContextProvider = ({children}) =>{
-    const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
+  const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
 
     return (
         <AuthContext.Provider value={{
