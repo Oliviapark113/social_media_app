@@ -32,6 +32,9 @@ app.use("/images", express.static(path.join(__dirname, "public/images")));
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
+// Define middleware here
+app.use(express.urlencoded({ extended: true }));
+
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -56,8 +59,10 @@ app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 
 
-if (process.env.NODE_ENV === 'production') {
-  app.use('/static', express.static(path.join(__dirname, 'client/build')));
+
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
 }
 
 app.listen(PORT, () => {
