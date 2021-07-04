@@ -10,16 +10,22 @@ const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
 const router = express.Router();
 const path = require("path");
+const PORT = process.env.PORT || 8800;
 
 dotenv.config();
 
 mongoose.connect(
-  process.env.MONGO_URL,
-  { useNewUrlParser: true, useUnifiedTopology: true },
+  process.env.MONGODB_URI || 'mongodb://localhost/social',
+  {  useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false},
   () => {
     console.log("Connected to MongoDB");
   }
 );
+
+
 app.use("/images", express.static(path.join(__dirname, "public/images")));
 
 //middleware
@@ -49,6 +55,11 @@ app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 
-app.listen(8800, () => {
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
+
+app.listen(PORT, () => {
   console.log("Backend server is running!");
 });
