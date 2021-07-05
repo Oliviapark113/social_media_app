@@ -52,7 +52,9 @@ export default function Register() {
                     <input placeholder="Password" minLength="6" type="password" required ref={password} className="loginInput"/>
                     <input placeholder="Password Again" required ref={passwordAgain}  className="loginInput"/>
                <button className="loginButton" type="submit">Sign Up</button>
-               <button className="loginRegisterButton">Log into Account</button>
+             
+               <button className="loginRegisterButton"  onClick={()=>history.push("/login")}>Log into Account</button>
+              
 
                 </form>
             </div>
