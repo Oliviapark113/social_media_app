@@ -8,10 +8,12 @@ import {Link} from "react-router-dom"
 import { AuthContext } from "../../context/AuthContext"
 
 export default function Post({post}) {
-
+    // console.log(post)
     const [like, setLike] = useState(post.likes.length)
     const [isLiked, setisLiked] = useState(false)
     const [user, setUser] = useState({})
+
+    // const [updatedPost, setUpdatedPost] = useState([post])
     const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
     const {user:currentUser} = useContext(AuthContext)
@@ -37,11 +39,27 @@ export default function Post({post}) {
             axios.put("/posts/"+post._id+"/like", {userId: currentUser._id})
         }
         catch(err){
-
+              console.log(err)
         }
         setLike(isLiked ? like-1 : like+1)
         setisLiked(!isLiked)
     }
+
+    // const editHandler = async() =>{
+
+    //     try{
+    //   const res = await axios.delete("/posts/"+post._id)
+
+    //   setUpdatedPost([...post, res.data])
+       
+    //     }
+    //     catch(err){
+    //         console.log(err)
+    //     }
+
+    // }
+
+    // console.log(updatedPost)
    
     
   return (
@@ -60,7 +78,7 @@ export default function Post({post}) {
 
                 </div>
                 <div className="postTopRight">
-                  <MoreVert/>
+                  <MoreVert />
                 </div>
             </div>
             <div className="postCenter">
