@@ -46,6 +46,7 @@ router.delete("/:id",async(req, res)=>{
             res.status(403).json("you can delete only on your account")
         }
     } catch (err) {
+        console.log(err)
         res.status(500).json(err)
     }
 

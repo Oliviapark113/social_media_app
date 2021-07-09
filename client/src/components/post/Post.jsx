@@ -1,19 +1,19 @@
 import "./post.css"
 import {MoreVert} from "@material-ui/icons"
-// import {Users} from "../../dummyData"
 import {useState, useEffect, useContext} from "react"
 import axios from "axios"
 import {format} from "timeago.js"
 import {Link} from "react-router-dom"
 import { AuthContext } from "../../context/AuthContext"
 
-export default function Post({post}) {
+export default function Post({post, deleteHandler}) {
     // console.log(post)
     const [like, setLike] = useState(post.likes.length)
     const [isLiked, setisLiked] = useState(false)
     const [user, setUser] = useState({})
+ 
 
-    // const [updatedPost, setUpdatedPost] = useState([post])
+ 
     const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
     const {user:currentUser} = useContext(AuthContext)
@@ -27,12 +27,14 @@ export default function Post({post}) {
   
          const res = await axios.get(`/users?userId=${post.userId}`)
          setUser(res.data)
-        //   console.log(res)
+     
         };
   
         fetchUser()
        
       },[post.userId])
+
+   
 
     const likeHandler = ()=>{
         try{
@@ -45,22 +47,8 @@ export default function Post({post}) {
         setisLiked(!isLiked)
     }
 
-    // const editHandler = async() =>{
 
-    //     try{
-    //   const res = await axios.delete("/posts/"+post._id)
-
-    //   setUpdatedPost([...post, res.data])
-       
-    //     }
-    //     catch(err){
-    //         console.log(err)
-    //     }
-
-    // }
-
-    // console.log(updatedPost)
-   
+  
     
   return (
    
@@ -68,7 +56,7 @@ export default function Post({post}) {
         <div className="postWrapper">
             <div className="postTop">
                 <div className="postTopLeft">
-                    <Link to={`profile/${user.username}`}>
+                    <Link to={`/profile/${user.username}`}>
                     <img className="postProfileImg" src= {user.profilePicture ? PF + user.profilePicture : PF+"person/noAvatar.png"} alt=""/>
                     </Link>
                     <span className="postUsername">
@@ -78,7 +66,7 @@ export default function Post({post}) {
 
                 </div>
                 <div className="postTopRight">
-                  <MoreVert />
+                  <MoreVert onClick={()=>deleteHandler(post._id)}/>
                 </div>
             </div>
             <div className="postCenter">

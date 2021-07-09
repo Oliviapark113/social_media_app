@@ -3,12 +3,14 @@ import { useRef, useContext} from "react";
 import {loginCall} from "../../apiCalls"
 import { AuthContext } from "../../context/AuthContext";
 import  {CircularProgress} from "@material-ui/core"
+import {useHistory} from "react-router-dom"
 
 
 export default function Login() {
 
     const email = useRef();
     const password = useRef();
+    const history = useHistory();
 
     const {user, isFetching, dispatch} = useContext(AuthContext)
 
@@ -41,7 +43,7 @@ export default function Login() {
                     className="loginInput" />
                <button className="loginButton" type="submit" disabled ={isFetching}>{isFetching ? <CircularProgress color="white" size="20px"/> : "Log In"}</button>
                <span className="loginForgot">Forgot Password?</span>
-               <button className="loginRegisterButton">
+               <button className="loginRegisterButton"onClick={()=>history.push("/register")}>
                {isFetching ? <CircularProgress color="white" size="20px"/> : "Create a New Account"}
                    </button>
 
