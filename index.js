@@ -38,9 +38,6 @@ app.use(express.urlencoded({ extended: true }));
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
   // Serve up static assets (usually on heroku)
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-  });
 }
 
 
@@ -70,7 +67,9 @@ app.use("/api/posts", postRoute);
 
 // Serve up static assets (usually on heroku)
 
-
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
 app.listen(PORT, () => {
   console.log("Backend server is running!");
