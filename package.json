@@ -1,5 +1,4 @@
-{
-  "name": "Social_media_app",
+{ "name": "social_app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
