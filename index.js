@@ -30,7 +30,11 @@ app.use("/images", express.static(path.join(__dirname, "public/images")));
 
 //middleware
 app.use(express.json());
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  }),
+);
 app.use(morgan("common"));
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
