@@ -63,8 +63,6 @@ app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 
-
-
 // Serve up static assets (usually on heroku)
 
 app.get("*", (req, res) => {
