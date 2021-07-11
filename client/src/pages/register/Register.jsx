@@ -13,6 +13,7 @@ export default function Register() {
 
     const handleClick = async (e)=> { 
       e.preventDefault();
+      console.log("I am submitting")
       if(passwordAgain.current.value !== password.current.value){
           password.current.setCustomValidity("Password don't match");
       }
@@ -26,13 +27,14 @@ export default function Register() {
           try{
             await axios.post("/auth/register", user);
             history.push("/login");
-
+            console.log(user)
           }
           catch(err){
               console.log(err)
           }
           
       }
+    
     }
 
 
@@ -53,7 +55,7 @@ export default function Register() {
                     <input placeholder="Password Again" required ref={passwordAgain}  className="loginInput"/>
                <button className="loginButton" type="submit">Sign Up</button>
              
-               <button className="loginRegisterButton"  onClick={()=>history.push("/login")}>Log into Account</button>
+               <button className="loginRegisterButton">Log into Account</button>
               
 
                 </form>
