@@ -3,24 +3,23 @@ import { useRef, useContext} from "react";
 import {loginCall} from "../../apiCalls"
 import { AuthContext } from "../../context/AuthContext";
 import  {CircularProgress} from "@material-ui/core"
-import {useHistory} from "react-router-dom"
-import {withRouter} from "react-router-dom"
+// import {withRouter} from "react-router-dom"
 
 
  function Login() {
 
     const email = useRef();
     const password = useRef();
-    const history = useHistory();
+  
 
-    const {user, isFetching, dispatch} = useContext(AuthContext)
+    const {user, isFetching, isAuth, dispatch} = useContext(AuthContext)
 
     const handleClick =(e)=>{
         e.preventDefault();
         loginCall({email: email.current.value, password: password.current.value}, dispatch)
     }
 
- console.log(user)
+ console.log(isAuth, user)
   return (
     <div className="login">
         <div className="loginWrapper">
@@ -57,4 +56,4 @@ import {withRouter} from "react-router-dom"
   )
 }
 
-export default withRouter(Login)
+export default Login

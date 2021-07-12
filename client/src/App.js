@@ -11,30 +11,28 @@ import {
 
 } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
-// import ProtectedRoute from "./pages/ProtectedRoute"
 
 
 function App() {
   const {user} = useContext(AuthContext)
-  const [isAuth, setIsAuth] = useState(false)
+  const [isAuth, setIsAuth]=useState(false)
+
   return (
 <Router>
   <Switch>
     <Route exact path="/">
     { user? <Home/> :  <Register/>}
     </Route>
-    <Route path="/login">
-   { user? < Redirect to="/" /> :< Login /> }
+    <Route exact path="/login">
+    {/* { user? < Redirect to="/" /> :< Login /> } */}
+    < Login />
     </Route>
-    <Route path="/register">  
+    <Route exact path="/register">  
     { user? < Redirect to="/" /> :  <Register/>}
     </Route>
     <Route path="/profile/:username">
     <Profile/>
     </Route>
-    {/* <Route>
-      <ProtectedRoute path="/login" component={Login} isAuth={setIsAuth(true)} />
-    </Route> */}
   </Switch>
 </Router>
   );
