@@ -4,9 +4,10 @@ import {loginCall} from "../../apiCalls"
 import { AuthContext } from "../../context/AuthContext";
 import  {CircularProgress} from "@material-ui/core"
 import {useHistory} from "react-router-dom"
+import {withRouter} from "react-router-dom"
 
 
-export default function Login() {
+ function Login() {
 
     const email = useRef();
     const password = useRef();
@@ -55,3 +56,5 @@ export default function Login() {
     </div>
   )
 }
+
+export default withRouter(Login)

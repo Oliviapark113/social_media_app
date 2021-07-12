@@ -1,10 +1,11 @@
 import "./topbar.css"
 import { Search, Person, Chat, Notifications } from "@material-ui/icons"
 import { Link } from "react-router-dom";
-import { useContext} from "react";
+import { useContext, useState} from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useHistory } from "react-router";
-
+import ProtectedRouter from "../../pages/ProtectedRoute"
+import Login from "../../pages/login/Login"
 
 
 export default function Topbar() {
@@ -12,29 +13,7 @@ export default function Topbar() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER
   const {user} = useContext(AuthContext);
   const history = useHistory();
-  // const logIn = useRef();
-  // const register = useRef();
-
-  // console.log(JSON.stringify(logIn.current.innerHTML))
-  
-
-
-  const handleClick = (e)=> { 
-  e.preventDefault();
-  console.log( e.target.innerText)
-     if(e.target.innerText === "Log In") 
-     {history.push("/login")}
-     else if (e.target.innerText === "Sign Up"){
-      history.push("/register")
-     }
-  
-    
-
-    }
-      
-        
-  
-  
+  const [isAuth, setIsAuth] = useState(false)
 
   return (
     <div className="topbarContainer">
@@ -53,10 +32,10 @@ export default function Topbar() {
         <div className="topbarLinks">
           <span className="topbarLink">Homepage</span>
           <span className="topbarLink">Timeline</span>
-          
-          <span className="topbarLink"style={{textDecoration:"none"}} onClick={handleClick}>Log In</span>   
-     
-          <span className="topbarLink" style={{textDecoration:"none"}} onClick={handleClick}>Sign Up</span>
+          <Link to="/login">
+          <span className="topbarLink"style={{textDecoration:"none"}} onClick={()=>setIsAuth(true)}>Log In</span> 
+          </Link>  
+          <span className="topbarLink" style={{textDecoration:"none"}} onClick={()=> null}>Sign Up</span>
       
         </div>
         <div className="topbarIcons">

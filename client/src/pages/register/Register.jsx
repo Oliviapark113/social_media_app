@@ -1,7 +1,8 @@
 import "./register.css"
-import {useRef} from "react"
+import {useRef, useContext} from "react"
 import axios from "axios"
 import { useHistory } from "react-router";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Register() {
 
@@ -10,7 +11,7 @@ export default function Register() {
     const password = useRef();
     const passwordAgain = useRef();
     const history = useHistory();
-
+    const {user} = useContext(AuthContext)
     const handleClick = async (e)=> { 
       e.preventDefault();
       console.log("I am submitting")
@@ -18,16 +19,16 @@ export default function Register() {
           password.current.setCustomValidity("Password don't match");
       }
       else {
-          const user = {
+          const currentUser = {
             username: username.current.value,
             email: email.current.value,
             password: password.current.value,
           
           };
           try{
-            await axios.post("/auth/register", user);
-            history.push("/login");
-            console.log(user)
+     
+            await axios.post("/auth/register", currentUser)
+       
           }
           catch(err){
               console.log(err)
@@ -55,7 +56,7 @@ export default function Register() {
                     <input placeholder="Password Again" required ref={passwordAgain}  className="loginInput"/>
                <button className="loginButton" type="submit">Sign Up</button>
              
-               <button className="loginRegisterButton">Log into Account</button>
+               <button className="loginRegisterButton"  onClick={()=>history.push("/login")}>Log into Account</button>
               
 
                 </form>
